@@ -130,6 +130,13 @@ func convScalar(spannerType ddl.Type, srcTypeName string, location *time.Locatio
 		return convNumeric(val)
 	case ddl.String:
 		return val, nil
+	case ddl.Json:
+		if srcTypeName == "public.hstore" {
+			transformedVal := "{" + strings.Replace(val, "=>", ":", -1) + "}"
+			return transformedVal, nil
+		} else {
+			return val, nil
+		}
 	case ddl.Timestamp:
 		return convTimestamp(srcTypeName, location, val)
 	default:

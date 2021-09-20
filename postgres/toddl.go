@@ -134,8 +134,8 @@ func toSpannerType(conv *internal.Conv, id string, mods []int64) (ddl.Type, []in
 		return ddl.Type{Name: ddl.Int64}, nil
 	case "int4", "integer":
 		return ddl.Type{Name: ddl.Int64}, []internal.SchemaIssue{internal.Widened}
-	case "int2", "smallint":
-		return ddl.Type{Name: ddl.Int64}, []internal.SchemaIssue{internal.Widened}
+	case "json", "jsonb", "public.hstore":
+		return ddl.Type{Name: ddl.Json}, []internal.SchemaIssue{internal.Widened}
 	case "numeric":
 		// PostgreSQL's NUMERIC type can have a specified precision of up to 1000
 		// digits (and scale can be anything from 0 up to the value of 'precision').
